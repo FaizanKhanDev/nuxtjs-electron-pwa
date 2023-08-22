@@ -23,8 +23,8 @@ jobs:
 
       - name: Install & Generate 🔧
         run: |
-          npm install ---force
-          npm run generate
+          yarn install --force
+          yarn generate
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
