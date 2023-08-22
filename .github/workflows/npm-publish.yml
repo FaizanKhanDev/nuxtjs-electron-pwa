@@ -23,13 +23,10 @@ jobs:
 
       - name: Install & Generate 🔧
         run: |
-          npm install
-          npm run generate
-        env:
-          NUXT_APP_BASE_URL: ${{ secrets.NUXT_APP_BASE_URL }}
-
+          yarn install 
+          yarn generate
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages
+          branch: production-branch
           folder: dist
