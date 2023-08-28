@@ -1,0 +1,45 @@
+name: Electron with Nuxt.js Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 16 
+
+    - name: Install dependencies
+      run: |
+        cd nuxt
+        npm install
+        cd ..
+
+    - name: Build Nuxt.js app
+      run: |
+        cd nuxt
+        npm run build
+        cd ..
+
+    - name: Build Electron app
+      run: |
+        npm install electron-builder -g
+        npm install
+        npm run electron:build
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: electron-build
+        path: dist_electron/
+
+# You can add more steps for testing, deploying, etc. as needed.
