@@ -16,25 +16,28 @@ jobs:
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: 16 
+        node-version: 16 # You can adjust the Node.js version
 
-    - name: Install dependencies
-      run: |
-        cd nuxt
-        npm install
-        cd ..
+    - name: Change working directory
+      run: cd nuxt
+
+    - name: Install Nuxt.js dependencies
+      run: npm install
 
     - name: Build Nuxt.js app
-      run: |
-        cd nuxt
-        npm run build
-        cd ..
+      run: npm run build
+
+    - name: Return to the root directory
+      run: cd ..
+
+    - name: Install Electron Builder
+      run: npm install electron-builder -g
+
+    - name: Install Electron app dependencies
+      run: npm install
 
     - name: Build Electron app
-      run: |
-        npm install electron-builder -g
-        npm install
-        npm run electron:build
+      run: npm run electron:build
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v2
@@ -42,4 +45,4 @@ jobs:
         name: electron-build
         path: dist_electron/
 
-# You can add more steps for testing, deploying, etc. as needed.
+
